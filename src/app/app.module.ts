@@ -34,6 +34,10 @@ import { defineLocale } from 'ngx-bootstrap/chronos';
 import { esLocale } from 'ngx-bootstrap/locale';
 defineLocale('es', esLocale);
 
+import localeEs from '@angular/common/locales/es';
+import { registerLocaleData } from '@angular/common';
+registerLocaleData(localeEs, 'es');
+
 
 
 import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
@@ -45,11 +49,14 @@ import { EstudianteGuardService as guard } from './guards/estudiante-guard.servi
 
 import { NgxSpinnerModule } from 'ngx-spinner';
 import { SpinnerInterceptorService } from './interceptors/spinner-interceptor.service';
+import { AsignacionesComponent } from './dashboard/clases/asignaciones/asignaciones.component';
+import { EstudianteNotasComponent } from './dashboard/estudiantes/estudiante-notas/estudiante-notas.component';
 
 export const routes: Routes = [
   { path: '', component: LoginComponent },
   { path: 'matriculas', component: MatriculasComponent , canActivate: [guard], data: {expectedRol: ['ADMIN']}},
   { path: 'dashboard', component: DashboardComponent, children: [
+    { path: 'estudiante/notas', component: EstudianteNotasComponent},
     { path: 'estudiantes/page/:page', component: EstudiantesComponent, canActivate: [guard], data: {expectedRol: ['ADMIN']}},
     { path: 'estudiantes/form', component: FormComponent, canActivate: [guard], data: {expectedRol: ['ADMIN']} },
     { path: 'estudiantes/form/:id', component: FormComponent, canActivate: [guard], data: {expectedRol: ['ADMIN']} },
@@ -58,6 +65,7 @@ export const routes: Routes = [
     { path: 'aulas/:idAula/clases/:idClase', component: ClaseDetalleComponent, canActivate: [guard], data: {expectedRol: ['ADMIN','PROFESOR']}},
     { path: 'aulas/:idAula/clases/:idClase/notas', component: NotasComponent, canActivate: [guard], data: {expectedRol: ['ADMIN','PROFESOR']}},
     { path: 'aulas/:idAula/clases/:idClase/asistencias', component: AsistenciasComponent, canActivate: [guard], data: {expectedRol: ['ADMIN','PROFESOR']}},
+    { path: 'aulas/:idAula/clases/:idClase/asignaciones/:idAsignacion', component: AsignacionesComponent },
     { path: 'aulas/:idAula/asistencias', component: AsistenciasComponent, canActivate: [guard], data: {expectedRol: ['ADMIN','PROFESOR']}},
     { path: 'aulas', component: AulasComponent, canActivate: [guard], data: {expectedRol: ['ADMIN']}},
     { path: 'aulas/form', component: AulaFormComponent, canActivate: [guard], data: {expectedRol: ['ADMIN']}},
@@ -68,7 +76,7 @@ export const routes: Routes = [
     { path: 'cursos', component: CursosComponent, canActivate: [guard], data: {expectedRol: ['ADMIN']} },
     { path: 'empleados', component: EmpleadosComponent, canActivate: [guard], data: {expectedRol: ['ADMIN']} },
     { path: 'empleados/form', component: EmpleadoFormComponent, canActivate: [guard], data: {expectedRol: ['ADMIN']} },
-    { path: 'empleados/form/:id', component: EmpleadoFormComponent, canActivate: [guard], data: {expectedRol: ['ADMIN']} },
+    { path: 'empleados/form/:id', component: EmpleadoFormComponent, canActivate: [guard], data: {expectedRol: ['ADMIN']} }
   ]},
   { path: '**', redirectTo:'', pathMatch:'full' }
 ];
@@ -98,7 +106,9 @@ export const routes: Routes = [
     HorarioComponent,
     NotasComponent,
     ClaseFormComponent,
-    DetalleComponent
+    DetalleComponent,
+    AsignacionesComponent,
+    EstudianteNotasComponent
   ],
   imports: [
     BrowserModule,
@@ -111,7 +121,7 @@ export const routes: Routes = [
     RouterModule.forRoot(routes),
     BsDatepickerModule.forRoot()
   ],
-  providers: [DatePipe, interceptorProvider, {provide: HTTP_INTERCEPTORS, useClass: SpinnerInterceptorService, multi: true}],
+  providers: [DatePipe, interceptorProvider, {provide: LOCALE_ID, useValue: 'es'}, {provide: HTTP_INTERCEPTORS, useClass: SpinnerInterceptorService, multi: true}],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

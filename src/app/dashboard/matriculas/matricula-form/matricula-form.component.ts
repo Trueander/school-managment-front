@@ -59,12 +59,12 @@ export class MatriculaFormComponent implements OnInit {
 
   buscarApoderado(): void {
 
-    if(this.apoderado.dni == undefined){
+    if(this.apoderado.cui == undefined){
       return
     }
 
 
-    this.apoderadoService.getApoderadoByDni(this.estudiante.apoderado.dni)
+    this.apoderadoService.getApoderadoByDni(this.estudiante.apoderado.cui)
         .subscribe((response: any) => {
 
           if(response.apoderado === null){
@@ -78,16 +78,16 @@ export class MatriculaFormComponent implements OnInit {
 
   crear(): void {
 
-    this.estudianteService.getEstudianteByDni(this.estudiante.dni)
+    this.estudianteService.getEstudianteByDni(this.estudiante.cui)
         .subscribe((response: any) => {
             if(response.estudiante !== null){
-              Swal.fire('Estudiante existente',`El estudiante con el dni ${this.estudiante.dni} ya existe.`,'info');
+              Swal.fire('Estudiante existente',`El estudiante con el dni ${this.estudiante.cui} ya existe.`,'info');
             return 
             }
 
             let nuevoUsuario: NuevoUsuario = new NuevoUsuario();
-            nuevoUsuario.username = this.estudiante.dni;
-            nuevoUsuario.password = this.estudiante.dni;
+            nuevoUsuario.username = this.estudiante.cui;
+            nuevoUsuario.password = this.estudiante.cui;
             nuevoUsuario.roles.push('ROLE_ESTUDIANTE')
         
             this.authService.nuevo(nuevoUsuario)

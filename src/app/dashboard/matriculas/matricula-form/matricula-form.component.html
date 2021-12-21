@@ -81,17 +81,17 @@
         </div>
         <div class="row mt-2">
             <div class="form-group col-sm-4">
-                <label for="dni" class="input-label">DNI</label>
-                <input type="text" class="form-control" name="dni" pattern="[0-9]+" [(ngModel)]="matricula.estudiante.dni" required  minlength="8" maxlength="8" #dni="ngModel">
+                <label for="dni" class="input-label">CUI</label>
+                <input type="text" class="form-control" name="dni" pattern="[0-9]+" [(ngModel)]="matricula.estudiante.cui" required  minlength="13" maxlength="13" #dni="ngModel">
                 <div class="text-danger" *ngIf="dni.invalid && (dni.dirty || dni.touched)">
                     <div *ngIf="dni.errors.required">
-                        DNI es requerido
+                        CUI es requerido
                     </div>
                     <div *ngIf="dni.errors.minlength || dni.errors.maxlength">
-                        DNI debe tener 8 caracteres.
+                        CUI debe tener 13 caracteres.
                     </div>
                     <div *ngIf="dni.errors?.pattern">
-                        DNI inválido.
+                        CUI inválido.
                     </div>
                 </div>
             </div>
@@ -198,21 +198,21 @@
         <hr>
         <div class="row mb-2">
             <div class="form-group col-sm-6">
-                <label for="dniApo" class="input-label" required>DNI</label>
+                <label for="dniApo" class="input-label" required>Cui</label>
                 <div class="input-group">
-                    <input type="text" class="form-control" name="dniApo" pattern="[0-9]+" [(ngModel)]="matricula.estudiante.apoderado.dni" required  minlength="8" maxlength="8" #dniApo="ngModel">
+                    <input type="text" class="form-control" name="dniApo" pattern="[0-9]+" [(ngModel)]="matricula.estudiante.apoderado.cui" required  minlength="13" maxlength="13" #dniApo="ngModel">
                     <!-- <button class="btn btn-success btn-sm" (click)="buscarApoderado()"><i class="fas fa-search"></i></button> -->
                 </div>
                 
                 <div class="text-danger" *ngIf="dniApo.invalid && (dniApo.dirty || dniApo.touched)">
                     <div *ngIf="dniApo.errors.required">
-                        DNI es requerido
+                        CUI es requerido
                     </div>
                     <div *ngIf="dniApo.errors.minlength || dniApo.errors.maxlength">
-                        DNI debe tener 8 caracteres.
+                        CUI debe tener 13 caracteres.
                     </div>
                     <div *ngIf="dniApo.errors?.pattern">
-                        DNI inválido.
+                        CUI inválido.
                     </div>
                 </div>
             </div>

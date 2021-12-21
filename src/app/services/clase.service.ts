@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { Observable, throwError } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
 import { URL_BACKEND } from '../config/config';
+import { Asignacion } from '../models/asignacion';
 import { Clase } from '../models/clase';
 import { Nota } from '../models/nota';
 
@@ -60,6 +61,10 @@ export class ClaseService {
 
   crearNota(nota: Nota): Observable<Nota>{
     return this.http.post<Nota>(`${this.urlEndPoint}/crearNota`, nota);
+  }
+
+  listaAsignacionesPorClase(idClase: number): Observable<Asignacion[]> {
+    return this.http.get<Asignacion[]>(`${this.urlEndPoint}/asignacionesPorClase/${idClase}`);
   }
 
 }

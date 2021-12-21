@@ -75,12 +75,13 @@ export class EmpleadoFormComponent implements OnInit {
 
   crear(){
     let nuevoUsuario: NuevoUsuario = new NuevoUsuario();
-    nuevoUsuario.username = this.empleado.dni;
-    nuevoUsuario.password = this.empleado.dni;
+    nuevoUsuario.username = this.empleado.cui;
+    nuevoUsuario.password = this.empleado.cui;
     nuevoUsuario.roles.push('ROLE_PROFESOR')
     this.empleado.especialidades = this.especialidadesDocente;
     this.authService.nuevo(nuevoUsuario).subscribe(response => {
       this.empleado.fechaNacimiento = this.datePipe.transform(this.empleado.fechaNacimiento, 'yyyy-MM-dd');
+      this.empleado.usuario = response.usuario;
       this.empleadoService.saveEmpleado(this.empleado)
       .subscribe(response => {
         

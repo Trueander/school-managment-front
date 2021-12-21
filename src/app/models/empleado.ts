@@ -1,3 +1,4 @@
+import { Usuario } from "../auth/models/usuario";
 import { Especialidad } from "./especialidad";
 
 export class Empleado {
@@ -6,10 +7,11 @@ export class Empleado {
     apellidoPaterno: string;
     apellidoMaterno: string;
     fechaNacimiento: string;
-    dni: string;
+    cui: string;
     domicilio: string;
     celular: string;
     sexo: string;
     correo: string;
     especialidades: Especialidad[];
+    usuario: Usuario;
 }

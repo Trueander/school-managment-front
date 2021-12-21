@@ -138,10 +138,10 @@ export class NotasComponent implements OnInit {
       const notaForm = this.fb.group({
 
         idNota: [nota.id],
-        bimestre1: [this.validarNumero(nota.nota_bim1), Validators.maxLength(2)],
-        bimestre2: [this.validarNumero(nota.nota_bim2), Validators.maxLength(2)],
-        bimestre3: [this.validarNumero(nota.nota_bim3), Validators.maxLength(2)],
-        bimestre4: [this.validarNumero(nota.nota_bim4), Validators.maxLength(2)],
+        bimestre1: [this.validarNumero(nota.nota_bim1), Validators.maxLength(3)],
+        bimestre2: [this.validarNumero(nota.nota_bim2), Validators.maxLength(3)],
+        bimestre3: [this.validarNumero(nota.nota_bim3), Validators.maxLength(3)],
+        bimestre4: [this.validarNumero(nota.nota_bim4), Validators.maxLength(3)],
         promedioFinal: [{value: this.validarNumero(nota.promedio_final), disabled: true}],
         estudiante: [nota.estudiante],
         curso: [nota.curso],

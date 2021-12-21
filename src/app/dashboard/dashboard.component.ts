@@ -31,8 +31,10 @@ export class DashboardComponent implements OnInit {
 
   profesorActivo: boolean;
   adminActivo: boolean;
+  estudianteActivo: boolean;
   empleado: Empleado = new Empleado();
-  clases: Clase[] = [];
+  clasesProfesor: Clase[] = [];
+  clasesEstudiante: Clase[] = [];
 
   cantidadEstudiantes: number;
   cantidadProfesores: number;
@@ -76,9 +78,11 @@ export class DashboardComponent implements OnInit {
               private matriculaService: MatriculaService) { }
 
   ngOnInit(): void {
+    
 
     this.tokenService.isProfesor() ? this.profesorActivo = true : this.profesorActivo = false;
     this.tokenService.isAdmin() ? this.adminActivo = true : this.adminActivo = false;
+    this.tokenService.isEstudiante() ? this.estudianteActivo = true : this.estudianteActivo = false;
 
     // this.tokenService.setDashboardTrue();
 
@@ -107,6 +111,11 @@ export class DashboardComponent implements OnInit {
     if(this.profesorActivo){
       this.cargarClasesProfesor();
     }
+
+    if(this.estudianteActivo){
+      this.cargarClasesEstudiante();
+    }
+
   }
 
   getNotasExcel(): void
@@ -181,7 +190,8 @@ export class DashboardComponent implements OnInit {
 
   irClase(clase: Clase): void {
     this.router.navigate([`/dashboard/aulas/${clase.aula.id}/clases/${clase.id}`]);
-    this.profesorActivo = false;
+    // this.profesorActivo = false;
+    // this.estudianteActivo = false;
     this.tokenService.setDashboardFalse();
   }
 
@@ -191,9 +201,19 @@ export class DashboardComponent implements OnInit {
       this.empleado = response;
       this.empleadoService.getClasesEmpleado(this.empleado.id.toString())
           .subscribe(response => {
-            this.clases = response;
+            this.clasesProfesor = response;
           });
     });
+  }
+
+  cargarClasesEstudiante(): void {
+    this.estudianteService.getEstudianteByDni(this.tokenService.getUsername())
+        .subscribe((response: any) => {
+        this.aulaService.getClasesAula(response.estudiante.aulaEstudiante.id)
+            .subscribe((response: Clase[]) => this.clasesEstudiante = response);
+        });
+
+
   }
 
   loadDataBarchart(): void {
@@ -246,6 +266,11 @@ export class DashboardComponent implements OnInit {
     this.tokenService.setDashboardFalse();
   }
 
+  mostrarNotasEstudiante(){
+    this.router.navigate(['estudiante/notas'], {relativeTo: this.route});
+    this.tokenService.setDashboardFalse();
+  }
+
   mostrarDashboard(){
     
    this.tokenService.setDashboardTrue(); 
@@ -254,9 +279,15 @@ export class DashboardComponent implements OnInit {
    if(this.isProfesor){
      this.profesorActivo = true
      this.adminActivo = false;
-   }else{
+     this.estudianteActivo = false;
+   }else if(this.isAdmin){
     this.profesorActivo = false
     this.adminActivo = true;
+    this.estudianteActivo = false;
+   }else {
+    this.profesorActivo = false
+    this.adminActivo = false;
+    this.estudianteActivo = true;
    }
 
   }
@@ -267,6 +298,14 @@ export class DashboardComponent implements OnInit {
 
   get isProfesor(): boolean {
     return this.tokenService.isProfesor();
+  }
+
+  get isEstudiante(): boolean {
+    return this.tokenService.isEstudiante();
+  }
+
+  get isAdmin(): boolean {
+    return this.tokenService.isAdmin();
   }
 
 

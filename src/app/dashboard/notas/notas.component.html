@@ -37,20 +37,20 @@
                                 <input type="text" formControlName="nombreEstudiante"  class="form-control pad-bottom" style="background: none; border: none;">
                             </div>
                             <div class="col-1 ">
-                                <input type="text" formControlName="bimestre1"  class="form-control text-center pad-bottom"[ngClass]="{'desaprobado': nota.controls.bimestre1.value < 13}" (keypress)="numberOnly($event)" maxlength="2">
+                                <input type="text" formControlName="bimestre1"  class="form-control text-center pad-bottom"[ngClass]="{'desaprobado': nota.controls.bimestre1.value < 60}" (keypress)="numberOnly($event)" maxlength="3">
                             </div>
                             <div class="col-1">
-                                <input type="text" formControlName="bimestre2" class="form-control text-center pad-bottom" [ngClass]="{'desaprobado': nota.controls.bimestre2.value < 13}" (keypress)="numberOnly($event)" maxlength="2">
+                                <input type="text" formControlName="bimestre2" class="form-control text-center pad-bottom" [ngClass]="{'desaprobado': nota.controls.bimestre2.value < 60}" (keypress)="numberOnly($event)" maxlength="3">
                             </div>
                             <div class="col-1">
-                                <input type="text" formControlName="bimestre3" class="form-control text-center pad-bottom" [ngClass]="{'desaprobado': nota.controls.bimestre3.value < 13}" (keypress)="numberOnly($event)" maxlength="2">
+                                <input type="text" formControlName="bimestre3" class="form-control text-center pad-bottom" [ngClass]="{'desaprobado': nota.controls.bimestre3.value < 60}" (keypress)="numberOnly($event)" maxlength="3">
                             </div>
                             
                             <div class="col-1">
-                                <input type="text" formControlName="bimestre4" class="form-control text-center pad-bottom"[ngClass]="{'desaprobado': nota.controls.bimestre4.value < 13}" (keypress)="numberOnly($event)" maxlength="2">
+                                <input type="text" formControlName="bimestre4" class="form-control text-center pad-bottom"[ngClass]="{'desaprobado': nota.controls.bimestre4.value < 60}" (keypress)="numberOnly($event)" maxlength="3">
                             </div>
                             <div class="col-1 ms-4">
-                                <input type="text" formControlName="promedioFinal" class="form-control text-center pad-bottom" [ngClass]="{'desaprobado': nota.controls.promedioFinal.value < 13}" style="background-color: #FFF;">
+                                <input type="text" formControlName="promedioFinal" class="form-control text-center pad-bottom" [ngClass]="{'desaprobado': nota.controls.promedioFinal.value < 60}" style="background-color: #FFF;">
                             </div>
                             
                         </div>
