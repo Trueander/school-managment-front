@@ -146,6 +146,7 @@ export class AsistenciasComponent implements OnInit {
       
       return
     }else {
+      
         let asistenciaEncontrada: Asistencia = estudiante.asistencias.find(a => a.fecha == this.fechaActual);
         let asistenciaIndex: number = estudiante.asistencias.indexOf(asistenciaEncontrada);
   

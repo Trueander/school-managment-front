@@ -7,7 +7,7 @@ export class Empleado {
     apellidoPaterno: string;
     apellidoMaterno: string;
     fechaNacimiento: string;
-    cui: string;
+    dni: string;
     domicilio: string;
     celular: string;
     sexo: string;
