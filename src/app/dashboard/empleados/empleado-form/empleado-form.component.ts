@@ -75,8 +75,8 @@ export class EmpleadoFormComponent implements OnInit {
 
   crear(){
     let nuevoUsuario: NuevoUsuario = new NuevoUsuario();
-    nuevoUsuario.username = this.empleado.cui;
-    nuevoUsuario.password = this.empleado.cui;
+    nuevoUsuario.username = this.empleado.dni;
+    nuevoUsuario.password = this.empleado.dni;
     nuevoUsuario.roles.push('ROLE_PROFESOR')
     this.empleado.especialidades = this.especialidadesDocente;
     this.authService.nuevo(nuevoUsuario).subscribe(response => {

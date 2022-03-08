@@ -5,6 +5,6 @@ export class Apoderado {
     nombres: string;
     apellidoPaterno: string;
     apellidoMaterno: string;
-    cui: string;
+    dni: string;
     celular: string;
 }
