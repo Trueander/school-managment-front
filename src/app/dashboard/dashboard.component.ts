@@ -53,6 +53,7 @@ export class DashboardComponent implements OnInit {
   grados: Grado[] = [];
   curso: Curso;
   gradoId: number;
+  bimestre: string;
 
   //prueba
   multi: any[];
@@ -130,13 +131,13 @@ export class DashboardComponent implements OnInit {
 
     if(this.gradoId == undefined){
 
-      this.matriculaService.getCursoReporte(this.curso.id.toString(), auxGradoId.toString())
+      this.matriculaService.getCursoReporte(this.curso.id.toString(), auxGradoId.toString(), this.bimestre)
       .subscribe(response => {
 
         if(response.length == 0) return Swal.fire('','No se encontraron registros de notas.','info');
         
         let link = document.createElement("a");
-        link.href= `${URL_BACKEND}/api/matriculas/getReporteCursoXLS?idCurso=${this.curso.id}&idGrado=${auxGradoId}`;
+        link.href= `${URL_BACKEND}/api/matriculas/getReporteCursoXLS?idCurso=${this.curso.id}&idGrado=${auxGradoId}&bimestre=${this.bimestre}`;
         link.click();
         
         
@@ -144,7 +145,7 @@ export class DashboardComponent implements OnInit {
       return 
     }
 
-    this.matriculaService.getCursoReporte(this.curso.id.toString(), this.gradoId.toString())
+    this.matriculaService.getCursoReporte(this.curso.id.toString(), this.gradoId.toString(), this.bimestre)
         .subscribe(response => {
 
           if(response.length == 0){
@@ -153,7 +154,7 @@ export class DashboardComponent implements OnInit {
           }
           
           let link = document.createElement("a");
-          link.href= `${URL_BACKEND}/api/matriculas/getReporteCursoXLS?idCurso=${this.curso.id}&idGrado=${this.gradoId}`;
+          link.href= `${URL_BACKEND}/api/matriculas/getReporteCursoXLS?idCurso=${this.curso.id}&idGrado=${this.gradoId}&bimestre=${this.bimestre}`;
           link.click();
         });
   }
@@ -162,9 +163,13 @@ export class DashboardComponent implements OnInit {
   getAsistenciaExcel(): void
   {
 
+    if(this.datePicked == undefined){
+      Swal.fire('','Elija una fecha para generar el reporte.','info');
+      return
+    }
+
     this.fechaTransformPieChart = this.datePipe.transform(this.datePicked,'dd/MM/yyyy');
-
-
+    
     if(this.fechaTransformPieChart[0] === '0'){
       let index = 0;
       this.fechaTransformPieChart = this.fechaTransformPieChart.substring(0, index) + this.fechaTransformPieChart.substring(index + 1);
@@ -221,7 +226,13 @@ export class DashboardComponent implements OnInit {
       Swal.fire('Upps','Elija una curso para mostrar datos.','info');
       return
     }
-    this.eventsSubjectBar.next([this.curso.id, this.gradoId]);
+    console.log(this.bimestre)
+    if(this.bimestre === undefined){
+      Swal.fire('Upps','Elija una bimestre para mostrar datos.','info');
+      return
+    }
+
+    this.eventsSubjectBar.next([this.curso.id, this.gradoId, this.bimestre]);
   }
 
   loadDataPiechart(): void {
@@ -240,29 +251,25 @@ export class DashboardComponent implements OnInit {
   
 
   mostrarEstudiantes(){
-    this.router.navigate(['estudiantes/page/:page'], {relativeTo: this.route});
+    // this.router.navigate(['estudiantes/page/:page'], {relativeTo: this.route});
     
     this.tokenService.setDashboardFalse();
   }
 
   mostrarAulas(){
-    this.router.navigate(['aulas'], {relativeTo: this.route})
     
     this.tokenService.setDashboardFalse();
   }
 
   mostrarGrados(){
-    this.router.navigate(['grados'], {relativeTo: this.route});
     this.tokenService.setDashboardFalse();
   }
   
   mostrarCursos(){
-    this.router.navigate(['cursos'], {relativeTo: this.route});
     this.tokenService.setDashboardFalse();
   }
 
   mostrarEmpleados(){
-    this.router.navigate(['empleados'], {relativeTo: this.route});
     this.tokenService.setDashboardFalse();
   }
 
@@ -273,8 +280,7 @@ export class DashboardComponent implements OnInit {
 
   mostrarDashboard(){
     
-   this.tokenService.setDashboardTrue(); 
-   this.router.navigate(['dashboard']);
+   this.tokenService.setDashboardTrue();
    
    if(this.isProfesor){
      this.profesorActivo = true

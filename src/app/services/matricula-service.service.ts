@@ -58,10 +58,11 @@ export class MatriculaService {
     return this.http.get<any>(`${this.urlEndPoint}/getAsistenciasPorDia`, {params: params});
   }
 
-  getCursoReporte(idCurso: string, idGrado: string): Observable<any>{
+  getCursoReporte(idCurso: string, idGrado: string, bimestre: string): Observable<any>{
     let params = new HttpParams();
     params = params.set('idCurso', idCurso);
     params = params.set('idGrado', idGrado);
+    params = params.set('bimestre', bimestre);
     return this.http.get<any>(`${this.urlEndPoint}/getCursoReporte`, {params: params});
   }
   

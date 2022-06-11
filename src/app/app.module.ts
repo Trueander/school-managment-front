@@ -62,7 +62,7 @@ export const routes: Routes = [
     { path: 'estudiantes/form/:id', component: FormComponent, canActivate: [guard], data: {expectedRol: ['ADMIN']} },
     { path: 'aulas/:idAula/clases', component: ClasesComponent, canActivate: [guard], data: {expectedRol: ['ADMIN']}},
     { path: 'aulas/:idAula/clases/horario', component: HorarioComponent, canActivate: [guard], data: {expectedRol: ['ADMIN']} },
-    { path: 'aulas/:idAula/clases/:idClase', component: ClaseDetalleComponent, canActivate: [guard], data: {expectedRol: ['ADMIN','PROFESOR']}},
+    { path: 'aulas/:idAula/clases/:idClase', component: ClaseDetalleComponent, canActivate: [guard], data: {expectedRol: ['ADMIN','PROFESOR','ESTUDIANTE']}},
     { path: 'aulas/:idAula/clases/:idClase/notas', component: NotasComponent, canActivate: [guard], data: {expectedRol: ['ADMIN','PROFESOR']}},
     { path: 'aulas/:idAula/clases/:idClase/asistencias', component: AsistenciasComponent, canActivate: [guard], data: {expectedRol: ['ADMIN','PROFESOR']}},
     { path: 'aulas/:idAula/clases/:idClase/asignaciones/:idAsignacion', component: AsignacionesComponent },

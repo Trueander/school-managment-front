@@ -52,13 +52,13 @@
         <div class="row mt-2">
             <div class="form-group col-sm-4">
                 <label for="dni" class="input-label">dni</label>
-                <input type="text" class="form-control" pattern="[0-9]+" name="dni" [(ngModel)]="empleado.dni" required  minlength="13" maxlength="13" #dni="ngModel">
+                <input type="text" class="form-control" pattern="[0-9]+" name="dni" [(ngModel)]="empleado.dni" required  minlength="8" maxlength="8" #dni="ngModel">
                 <div class="text-danger" *ngIf="dni.invalid && (dni.dirty || dni.touched)">
                     <div *ngIf="dni.errors.required">
                         dni es requerido
                     </div>
                     <div *ngIf="dni.errors.minlength || dni.errors.maxlength">
-                        dni debe tener 13 caracteres.
+                        dni debe tener 8 caracteres.
                     </div>
                     <div *ngIf="dni.errors?.pattern">
                         dni inválido.
@@ -121,7 +121,7 @@
         <div class="form-group col-sm-6">
             <label for="sexo" class="input-label">Sexo</label>
                     <div class="col-sm-12">
-                        <select [(ngModel)]="empleado.sexo" class="form-control" name="sexo">
+                        <select [(ngModel)]="empleado.sexo" class="form-select" name="sexo">
                             <option [ngValue]="undefined">--- Seleccionar sexo ---</option>
                             <option *ngFor="let s of sexo" [ngValue]="s">{{s}}</option>
                         </select>

@@ -1,11 +1,11 @@
-<div class="card" *ngIf="estudiantes.length == 0">
+<div class="card" *ngIf="estudiantes.length == 0 && asistencias.length == 0">
   <div class="alert alert-info mt-3 mx-3 d-flex justify-content-between" role="alert">
     <span>No hay estudiantes en el aula. Asigne estudiantes.</span>
     <a *ngIf="!idClase" [routerLink]="[ '/dashboard/aulas',idAula,'clases' ]" class="btn btn-light btn-sm">&laquo; regresar</a>
     <a *ngIf="idClase" [routerLink]="[ '/dashboard/aulas',idAula,'clases',idClase ]" class="btn btn-light btn-sm">&laquo; regresar</a>
   </div>
 </div>
-<div class="card" *ngIf="estudiantes.length > 0">
+<div class="card" *ngIf="estudiantes.length > 0 ||  asistencias.length > 0">
   <div class="card-header bg-white">
     Marcar asistencia
 

@@ -19,7 +19,7 @@
             <div class="row p-3">
               <ul class="list-group px-2">
                 <li class="list-group-item list-group-item-primary"><span>{{ clase.curso.nombre }}</span></li>
-                <li class="list-group-item list-group-item-light"><span>Aula: </span><span>{{ clase.aula?.nombre }}{{ clase.aula?.seccion }}</span></li>
+                <li class="list-group-item list-group-item-light"><span>Aula: </span><span>{{ clase.aula?.nombre }} {{ clase.aula?.seccion }}</span></li>
                 <li class="list-group-item list-group-item-light" *ngIf="clase.empleado"><span>Profesor(a): </span><span>{{ clase.empleado?.nombres }} {{ clase.empleado?.apellidoPaterno }}</span></li>
                 <li class="list-group-item list-group-item-light" *ngIf="!clase.empleado"><span>Profesor(a): </span> <button class="btn btn-success btn-sm">Asignar Profesor</button></li>
                 <a [routerLink]="[clase.id]" style="text-decoration: none; color: inherit;">

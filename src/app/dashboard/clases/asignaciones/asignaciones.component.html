@@ -71,7 +71,7 @@
                             <small >{{ respuestaEncontrada.archivo}}</small>
                             
                         </a>
-                        <small class="ms-1" *ngIf="respuestaEncontrada.nota != null">- Nota asignada: <span class="ms-2 badge bg-primary">{{ respuestaEncontrada.nota }}</span></small>
+                        <small class="ms-1" *ngIf="respuestaEncontrada.nota != null">- Nota asignada: <span class="ms-2 badge bg-primary" [ngClass]="{'bg-danger': respuestaEncontrada.nota < NOTA_APROBATORIA}">{{ respuestaEncontrada.nota }}</span></small>
                         <button class="btn btn-danger btn-sm ms-3" (click)="eliminarRespuesta(respuestaEncontrada.id)" *ngIf="respuestaEncontrada.nota == null">Eliminar</button>
                     </div>
                 </div>

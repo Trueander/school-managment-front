@@ -1,15 +1,15 @@
 import { Component, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Clase } from 'src/app/models/clase';
 import { Estudiante } from 'src/app/models/estudiante';
 import { Nota } from 'src/app/models/nota';
 import { AulaService } from 'src/app/services/aula.service';
 import { ClaseService } from 'src/app/services/clase.service';
-import { EstudianteService } from 'src/app/services/estudiante.service';
 import { MatriculaService } from 'src/app/services/matricula-service.service';
 import { TokenService } from 'src/app/services/token.service';
 import Swal from 'sweetalert2';
+
+
 
 @Component({
   selector: 'app-notas',
@@ -20,7 +20,7 @@ export class NotasComponent implements OnInit {
 
   estudiantes: Estudiante[] = [];
   notas: Nota[] = [];
-
+  NOTA_APROBATORIA: number = 13;
   
   idAula: string;
   idClase: string;
@@ -55,7 +55,6 @@ export class NotasComponent implements OnInit {
                         this.estudiantes = response;
 
                         this.estudiantes.forEach(e => {
-
                           if(e.notas.length == 0 || e.notas.find(n => n.curso.id == clase.curso.id) == undefined){
                             let nota: Nota = new Nota();
                             nota.curso = clase.curso;
@@ -106,7 +105,13 @@ export class NotasComponent implements OnInit {
 
   enviar(values:any){
     this.notas = [];
+    let notaMayorA20: boolean = false;
     values.notasForm.forEach( nota => {
+      if(nota.bimestre1 > 20 || nota.bimestre2 > 20 || nota.bimestre3 > 20 || nota.bimestre4 > 20) {
+        
+        notaMayorA20 = true;
+      }
+
       let notaActualizar: Nota = new Nota();
       notaActualizar.id = nota.idNota;
       notaActualizar.nota_bim1 = nota.bimestre1;
@@ -116,7 +121,13 @@ export class NotasComponent implements OnInit {
       notaActualizar.estudiante = nota.estudiante;
       notaActualizar.curso = nota.curso;
       this.notas.push(notaActualizar);
+      
     })
+
+    if(notaMayorA20) {
+      Swal.fire('Verificar', 'La nota no puede ser mayor a 20','info');
+      return 
+    }
     
     this.matriculaService.actualizarNotas(this.notas)
         .subscribe(response => {
@@ -138,10 +149,10 @@ export class NotasComponent implements OnInit {
       const notaForm = this.fb.group({
 
         idNota: [nota.id],
-        bimestre1: [this.validarNumero(nota.nota_bim1), Validators.maxLength(3)],
-        bimestre2: [this.validarNumero(nota.nota_bim2), Validators.maxLength(3)],
-        bimestre3: [this.validarNumero(nota.nota_bim3), Validators.maxLength(3)],
-        bimestre4: [this.validarNumero(nota.nota_bim4), Validators.maxLength(3)],
+        bimestre1: [this.validarNumero(nota.nota_bim1), Validators.maxLength(2)],
+        bimestre2: [this.validarNumero(nota.nota_bim2), Validators.maxLength(2)],
+        bimestre3: [this.validarNumero(nota.nota_bim3), Validators.maxLength(2)],
+        bimestre4: [this.validarNumero(nota.nota_bim4), Validators.maxLength(2)],
         promedioFinal: [{value: this.validarNumero(nota.promedio_final), disabled: true}],
         estudiante: [nota.estudiante],
         curso: [nota.curso],
@@ -149,7 +160,6 @@ export class NotasComponent implements OnInit {
       });
 
     this.notasForm.push(notaForm);
-
   }
 
   validarNumero(number: number): string{

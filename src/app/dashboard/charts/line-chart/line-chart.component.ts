@@ -16,7 +16,7 @@ export class LineChartComponent implements OnInit {
 
   aulas: Aula[] = [];
   multi: any[];
-  view: any[] = [800, 400];
+  view: any[] = [700, 400];
 
   multiData: any[] = [];
 
@@ -44,16 +44,17 @@ export class LineChartComponent implements OnInit {
       if(ids[1] == undefined){
         ids[1] = 0;
       }
-      this.getDatosChart(ids[0], ids[1]);
+      this.getDatosChart(ids[0], ids[1], ids[2]);
     })
   }
 
-  getDatosChart(idCurso: number, idGrado: number): void {
+  getDatosChart(idCurso: number, idGrado: number, bimestre: string): void {
     this.multiData = [];
     this.multi = [];
 
-    this.matriculaService.getCursoReporte(idCurso.toString(), idGrado.toString())
+    this.matriculaService.getCursoReporte(idCurso.toString(), idGrado.toString(), bimestre)
         .subscribe(response => {
+          console.log(response)
           if(response == null){
             return
           }

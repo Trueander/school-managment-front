@@ -82,13 +82,13 @@
         <div class="row mt-2">
             <div class="form-group col-sm-4">
                 <label for="dni" class="input-label">dni</label>
-                <input type="text" class="form-control" name="dni" pattern="[0-9]+" [(ngModel)]="matricula.estudiante.dni" required  minlength="13" maxlength="13" #dni="ngModel">
+                <input type="text" class="form-control" name="dni" pattern="[0-9]+" [(ngModel)]="matricula.estudiante.dni" required  minlength="8" maxlength="8" #dni="ngModel">
                 <div class="text-danger" *ngIf="dni.invalid && (dni.dirty || dni.touched)">
                     <div *ngIf="dni.errors.required">
                         dni es requerido
                     </div>
                     <div *ngIf="dni.errors.minlength || dni.errors.maxlength">
-                        dni debe tener 13 caracteres.
+                        dni debe tener 8 caracteres.
                     </div>
                     <div *ngIf="dni.errors?.pattern">
                         dni inválido.
@@ -140,7 +140,7 @@
             <div class="form-group col-sm-3">
                 <label for="nivel" class="input-label">Nivel</label>
                         <div class="col-sm-12">
-                            <select [(ngModel)]="matricula.estudiante.nivel" class="form-control" name="nivel" required>
+                            <select [(ngModel)]="matricula.estudiante.nivel" class="form-select" name="nivel" required>
                                 <option [ngValue]="undefined">--- Seleccionar nivel ---</option>
                                 <option *ngFor="let nivel of niveles" [ngValue]="nivel">{{nivel.nombre}}</option>
                             </select>
@@ -149,7 +149,7 @@
             <div class="form-group col-sm-3">
                 <label for="turno" class="input-label">Turno</label>
                         <div class="col-sm-12">
-                            <select [(ngModel)]="matricula.estudiante.turno" class="form-control" name="turno" required>
+                            <select [(ngModel)]="matricula.estudiante.turno" class="form-select" name="turno" required>
                                 <option [ngValue]="undefined">--- Seleccionar turno ---</option>
                                 <option *ngFor="let turno of turnos" [ngValue]="turno">{{turno.nombre}}</option>
                             </select>
@@ -158,7 +158,7 @@
             <div class="form-group col-sm-3">
                 <label for="grado" class="input-label">Grado</label>
                         <div class="col-sm-12">
-                            <select [(ngModel)]="matricula.estudiante.grado" class="form-control" name="grado" required>
+                            <select [(ngModel)]="matricula.estudiante.grado" class="form-select" name="grado" required>
                                 <option [ngValue]="undefined">--- Seleccionar grado ---</option>
                                 <option *ngFor="let grado of grados" [ngValue]="grado">{{grado.nombre}}</option>
                             </select>
@@ -167,7 +167,7 @@
             <div class="form-group col-sm-3">
                 <label for="sexo" class="input-label">Sexo</label>
                         <div class="col-sm-12">
-                            <select [(ngModel)]="matricula.estudiante.sexo" class="form-control" name="sexo" required>
+                            <select [(ngModel)]="matricula.estudiante.sexo" class="form-select" name="sexo" required>
                                 <option [ngValue]="undefined">--- Seleccionar sexo ---</option>
                                 <option *ngFor="let s of sexo" [ngValue]="s">{{s}}</option>
                             </select>
@@ -200,7 +200,7 @@
             <div class="form-group col-sm-6">
                 <label for="dniApo" class="input-label" required>dni</label>
                 <div class="input-group">
-                    <input type="text" class="form-control" name="dniApo" pattern="[0-9]+" [(ngModel)]="matricula.estudiante.apoderado.dni" required  minlength="13" maxlength="13" #dniApo="ngModel">
+                    <input type="text" class="form-control" name="dniApo" pattern="[0-9]+" [(ngModel)]="matricula.estudiante.apoderado.dni" required  minlength="8" maxlength="8" #dniApo="ngModel">
                     <!-- <button class="btn btn-success btn-sm" (click)="buscarApoderado()"><i class="fas fa-search"></i></button> -->
                 </div>
                 
@@ -209,7 +209,7 @@
                         dni es requerido
                     </div>
                     <div *ngIf="dniApo.errors.minlength || dniApo.errors.maxlength">
-                        dni debe tener 13 caracteres.
+                        dni debe tener 8 caracteres.
                     </div>
                     <div *ngIf="dniApo.errors?.pattern">
                         dni inválido.

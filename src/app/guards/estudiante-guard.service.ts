@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { ActivatedRouteSnapshot, CanActivate, Router, RouterStateSnapshot } from '@angular/router';
+import Swal from 'sweetalert2';
 import { TokenService } from '../services/token.service';
 
 @Injectable({
@@ -23,10 +24,21 @@ export class EstudianteGuardService implements CanActivate {
       if(rol === 'ROLE_PROFESOR'){
         this.realRol = 'PROFESOR';
       }
+      if(rol === 'ROLE_ESTUDIANTE'){
+        this.realRol = 'ESTUDIANTE';
+      }
     });
-
-    if(!this.tokenService.getToken() || expectedRol.indexOf(this.realRol) === -1){
+    
+    if(expectedRol.indexOf(this.realRol) === -1){
+      Swal.fire('Sin accesos', 'No tienes accesos a esa ruta','info')
+      this.tokenService.setDashboardTrue();
       this.router.navigate(['/dashboard']);
+      return false;
+    }
+    
+    if(!this.tokenService.getToken()) {
+      Swal.fire('Ocurrió algo', 'Ingrese nuevamente','warning')
+      this.tokenService.onLogout();
       return false;
     }
 

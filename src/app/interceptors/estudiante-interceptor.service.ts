@@ -2,6 +2,7 @@ import { HttpErrorResponse, HttpEvent, HttpHandler, HttpInterceptor, HttpRequest
 import { Injectable } from '@angular/core';
 import { Observable, throwError } from 'rxjs';
 import { catchError, concatMap } from 'rxjs/operators';
+import Swal from 'sweetalert2';
 import { JwtDto } from '../auth/models/jwt-dto';
 import { AuthService } from '../services/auth.service';
 import { TokenService } from '../services/token.service';
@@ -35,18 +36,25 @@ export class EstudianteInterceptorService implements HttpInterceptor{
 
           return this.authService.refreshToken(dto)
                      .pipe(concatMap((data: any) => {
-                       console.log('refreshing...')
                        this.tokenService.setToken(data.token);
                        intReq = this.addToken(intReq, data.token);
                        return next.handle(intReq);
                      }));
 
-        }else {
-          // this.tokenService.onLogout();
-          return throwError(err);
         }
-          
 
+        if(err.status === 500){ 
+           Swal.fire('Error', 'Algo salió mal','error')
+           return throwError(err);
+        }
+
+        if(err.status === 0){ 
+          Swal.fire('Error', 'Algo salió mal','error')
+          this.tokenService.onLogout();
+          return throwError(err);
+       }
+          
+        return throwError(err);
 
       })
     );

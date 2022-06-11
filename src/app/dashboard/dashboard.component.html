@@ -19,8 +19,7 @@
                 <span class="me-4"><i class="fas fa-tachometer-alt"></i></span>
               </div>
             </li>
-            <li class="nav-item px-4 py-3 d-flex flex-row li" (click)="mostrarEstudiantes()" style="cursor: pointer;" *ngIf="adminActivo">
-
+            <li class="nav-item px-4 py-3 d-flex flex-row li" (click)="mostrarEstudiantes()" style="cursor: pointer;" *ngIf="adminActivo" [routerLink]="['/dashboard/estudiantes/page/:page']" >
               <div class="col-9 " >
                 <span class="col-sm-8">Estudiantes</span>
               </div>
@@ -28,7 +27,7 @@
                 <span class="me-4 col-sm-4"><i class="fas fa-child"></i></span>
               </div>
             </li>
-            <li class="nav-item px-4 py-3 d-flex flex-row li" (click)="mostrarEmpleados()" style="cursor: pointer;" *ngIf="adminActivo">
+            <li class="nav-item px-4 py-3 d-flex flex-row li" (click)="mostrarEmpleados()" style="cursor: pointer;" *ngIf="adminActivo" [routerLink]="['/dashboard/empleados']" >
 
               <div class="col-9">
                 <span class="">Empleados</span>
@@ -37,7 +36,7 @@
                 <span class="me-4"><i class="fas fa-chalkboard-teacher"></i></span>
               </div>
             </li>
-            <li class="nav-item px-4 py-3 d-flex flex-row li" (click)="mostrarAulas()" style="cursor: pointer;" *ngIf="adminActivo">
+            <li class="nav-item px-4 py-3 d-flex flex-row li" (click)="mostrarAulas()" style="cursor: pointer;" *ngIf="adminActivo" [routerLink]="['/dashboard/aulas']">
               <div class="col-9">
                 <span class="">Aulas</span>
               </div>
@@ -45,7 +44,7 @@
                 <span class="me-4"><i class="fas fa-school"></i></span>
               </div>
             </li>
-            <li class="nav-item px-4 py-3 d-flex flex-row li" (click)="mostrarCursos()" style="cursor: pointer;" *ngIf="adminActivo">
+            <li class="nav-item px-4 py-3 d-flex flex-row li" (click)="mostrarCursos()" style="cursor: pointer;" *ngIf="adminActivo" [routerLink]="['/dashboard/cursos']">
               <div class="col-9">
                 <span >Cursos</span>
               </div>
@@ -53,7 +52,7 @@
                 <span class="me-4"><i class="fas fa-book"></i></span>
               </div>
             </li>
-            <li class="nav-item px-4 py-3 d-flex flex-row li" (click)="mostrarGrados()" style="cursor: pointer;" *ngIf="adminActivo">
+            <li class="nav-item px-4 py-3 d-flex flex-row li" (click)="mostrarGrados()" style="cursor: pointer;" *ngIf="adminActivo" [routerLink]="['/dashboard/grados']">
 
               <div class="col-9">
                 <span class="">Grados</span>
@@ -127,22 +126,33 @@
             <div class="line-chart">
               <div class="chart-title d-flex justify-content-between">
                 <span class="col-4">Gráfico de notas</span>
-                <div class="d-flex justify-content-evenly col-xl-6 col-xxl-7 col-sm-8">
-                  <div class="col-4">
-                    <select  [(ngModel)]="curso" class="form-control" name="cursoId">
-                        <option [ngValue]="undefined">- Elija Curso -</option>
+                <div class="d-flex justify-content-between col-xl-6 col-xxl-7 col-sm-8">
+                  <div class="col-3">
+                    <select  [(ngModel)]="curso" class="form-select form-select-sm" name="cursoId">
+                        <option [ngValue]="undefined" >Cursos</option>
                         <option *ngFor="let curso of cursos" [ngValue]="curso">{{curso.nombre}}</option>
                     </select>
                     
                   </div>
-                  <div class="col-4">
-                    <select  [(ngModel)]="gradoId" class="form-control" name="gradoId">
-                        <option [ngValue]="undefined">Todos los grados</option>
+                  <div class="col-3">
+                    <select  [(ngModel)]="gradoId" class="form-select form-select-sm" name="gradoId">
+                        <option [ngValue]="undefined" >Grados</option>
                         <option *ngFor="let grado of grados" [ngValue]="grado.id">{{grado.nombre}}</option>
                     </select>
                   </div>
-                  <button (click)="loadDataBarchart()" class="btn btn-outline-secondary"><i class="fas fa-search"></i></button>
-                  <button (click)="getNotasExcel()" class="btn btn-primary"><i class="fas fa-file-download"></i></button>
+                  <div class="col-3">
+                    <select  [(ngModel)]="bimestre" class="form-select form-select-sm" name="bimestre">
+                      <!-- Estos valores están relacionados a los atributos de la entidad Nota en el back -->
+                        <option [ngValue]="undefined">Bimestres</option>
+                        <option  value="nota_bim1">Bim 1</option>
+                        <option value="nota_bim2">Bim 2</option>
+                        <option value="nota_bim3">Bim 3</option>
+                        <option value="nota_bim4">Bim 4</option>
+                        <option value="promedio_final">Promedio final</option>
+                    </select>
+                  </div>
+                  <button (click)="loadDataBarchart()" class="btn btn-outline-secondary d-flex justify-content-center align-items-center" style=" height: 30px;"><i class="fas fa-search"></i></button>
+                  <button (click)="getNotasExcel()" class="btn btn-outline-primary d-flex justify-content-center align-items-center" style=" height: 30px;"><i class="fas fa-file-download"></i></button>
                 </div>
               </div>
               <hr>
@@ -155,7 +165,7 @@
               <div class="chart-title d-flex justify-content-between">
                 <span>Gráfico de asistencias</span>
                 <div class="col-md-4">
-                  <div class="input-group">
+                  <div class="input-group input-group-sm">
                       <div class="input-group-text" >
                         <i class="far fa-calendar-alt"></i>
                       </div>
@@ -170,7 +180,7 @@
                        [(ngModel)]="datePicked">
                        
                        <button (click)="loadDataPiechart()" class="btn btn-outline-secondary"><i class="fas fa-search"></i></button>
-                       <button (click)="getAsistenciaExcel()" class="btn btn-primary ms-2"><i class="fas fa-file-download"></i></button>
+                       <button (click)="getAsistenciaExcel()" class="btn btn-outline-primary d-flex justify-content-center align-items-center ms-2" style=" height: 30px;"><i class="fas fa-file-download"></i></button>
                   </div>
                 </div>
               </div>
@@ -230,7 +240,7 @@
                     <div class="row p-3">
                       <ul class="list-group px-2">
                         <li class="list-group-item list-group-item-primary"><span>{{clase.curso.nombre}}</span></li>
-                        <li class="list-group-item list-group-item-light"><span>Aula: </span><span>{{clase.aula.nombre}}{{clase.aula.seccion}}</span></li>
+                        <li class="list-group-item list-group-item-light"><span>Aula: </span><span>{{clase.aula.nombre}} {{clase.aula.seccion}}</span></li>
                         <li class="list-group-item list-group-item-light" ><span>Profesor: </span><span>{{clase.empleado.nombres}} {{clase.empleado.apellidoPaterno}}</span></li>
                         <a  style="text-decoration: none; color: inherit;">
                           <li class="list-group-item list-group-item-success text-center" (click)="irClase(clase)" style="cursor: pointer;">Ver clase</li>

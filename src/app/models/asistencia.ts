@@ -20,7 +20,5 @@ export class Asistencia {
         let day = d.getDate()
 
         this.fecha = day + "/" + month + "/" + year;
-    
-        console.log(this.fecha)
     }
 }

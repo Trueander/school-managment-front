@@ -69,7 +69,7 @@
 
                         <label for="sexo" class="input-label">Sexo</label>
                         <div class="col-sm-12">
-                            <select [(ngModel)]="estudiante.sexo" class="form-control" name="sexo">
+                            <select [(ngModel)]="estudiante.sexo" class="form-select" name="sexo">
                                 <option [ngValue]="undefined">--- Seleccionar sexo ---</option>
                                 <option *ngFor="let s of sexo" [ngValue]="s">{{s}}</option>
                             </select>
@@ -84,7 +84,7 @@
                     <div class="form-group col-sm-3">
                         <label for="nivel" class="input-label">Nivel</label>
                                 <div class="col-sm-12">
-                                    <select [compareWith]="compararNivel" [(ngModel)]="estudiante.nivel" class="form-control" name="nivel">
+                                    <select [compareWith]="compararNivel" [(ngModel)]="estudiante.nivel" class="form-select" name="nivel">
                                         <option [ngValue]="undefined">--- Seleccionar nivel ---</option>
                                         <option *ngFor="let nivel of niveles" [ngValue]="nivel">{{nivel.nombre}}</option>
                                     </select>
@@ -93,7 +93,7 @@
                     <div class="form-group col-sm-3">
                         <label for="turno" class="input-label">Turno</label>
                                 <div class="col-sm-12">
-                                    <select [compareWith]="compararTurno" [(ngModel)]="estudiante.turno" class="form-control" name="turno">
+                                    <select [compareWith]="compararTurno" [(ngModel)]="estudiante.turno" class="form-select" name="turno">
                                         <option [ngValue]="undefined">--- Seleccionar turno ---</option>
                                         <option *ngFor="let turno of turnos" [ngValue]="turno">{{turno.nombre}}</option>
                                     </select>
@@ -102,7 +102,7 @@
                     <div class="form-group col-sm-3">
                         <label for="grado" class="input-label">Grado</label>
                                 <div class="col-sm-12">
-                                    <select [compareWith]="compararGrado" [(ngModel)]="estudiante.grado" class="form-control" name="grado">
+                                    <select [compareWith]="compararGrado" [(ngModel)]="estudiante.grado" class="form-select" name="grado">
                                         <option [ngValue]="undefined">--- Seleccionar grado ---</option>
                                         <option *ngFor="let grado of grados" [ngValue]="grado">{{grado.nombre}}</option>
                                     </select>
@@ -111,9 +111,9 @@
                     <div class="form-group col-sm-3">
                         <label for="aula" class="input-label">Aula</label>
                         <div>
-                            <select [compareWith]="compararAula" [(ngModel)]="estudiante.aulaEstudiante" class="form-control" name="aula">
+                            <select [compareWith]="compararAula" [(ngModel)]="estudiante.aulaEstudiante" class="form-select" name="aula">
                                 <option [ngValue]="undefined">--- Seleccionar una aula ---</option>
-                                <option *ngFor="let aula of aulas" [ngValue]="aula">{{ aula.nombre }}{{aula.seccion}}</option>
+                                <option *ngFor="let aula of aulas" [ngValue]="aula">{{ aula.nombre }} {{aula.seccion}}</option>
                             </select>
                         </div>
                     </div>

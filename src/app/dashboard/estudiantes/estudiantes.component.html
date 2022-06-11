@@ -38,9 +38,9 @@
                         <tbody *ngIf="!busquedaActivada && estudianteEncontrado == null">
                             <tr *ngFor="let estudiante of listaEstudiantes">
                                 <td><button class="btn btn-primary" (click)="abrirModal(estudiante)">{{estudiante.id}}</button></td>
-                                <td>{{estudiante.nombres}}</td>
-                                <td>{{estudiante.apellidoPaterno}}</td>
-                                <td>{{estudiante.apellidoMaterno}}</td>
+                                <td>{{estudiante.nombres | uppercase}}</td>
+                                <td>{{estudiante.apellidoPaterno | uppercase}}</td>
+                                <td>{{estudiante.apellidoMaterno | uppercase}}</td>
                                 <td>{{estudiante.dni}}</td>
                                 <td>{{estudiante.fechaNacimiento}}</td>
                                 <td>

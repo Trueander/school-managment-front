@@ -30,14 +30,14 @@
                         <tbody>
                             <tr *ngFor="let empleado of listaEmpleados">
                                 <td><button class="btn btn-primary" (click)="abrirModal(empleado)">{{empleado.id}}</button></td>
-                                <td>{{empleado.nombres}}</td>
-                                <td>{{empleado.apellidoPaterno}}</td>
-                                <td>{{empleado.apellidoMaterno}}</td>
+                                <td>{{empleado.nombres | uppercase}}</td>
+                                <td>{{empleado.apellidoPaterno | uppercase}}</td>
+                                <td>{{empleado.apellidoMaterno | uppercase}}</td>
                                 <td>{{empleado.dni}}</td>
                                 <td>{{empleado.fechaNacimiento}}</td>
                                 <td>
                                     <button class="btn me-2"  [routerLink]="[ 'form', empleado.id ]"><i class="far fa-edit"></i></button>
-                                    <button class="btn btn-eliminar " (click)="eliminar(empleado)"><i class="far fa-trash-alt"></i></button>
+                                    <!-- <button class="btn btn-eliminar " (click)="eliminar(empleado)"><i class="far fa-trash-alt"></i></button> -->
                                 </td>
                             </tr>
                         </tbody>
