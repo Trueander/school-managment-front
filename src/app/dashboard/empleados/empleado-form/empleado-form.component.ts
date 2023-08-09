@@ -87,7 +87,7 @@ export class EmpleadoFormComponent implements OnInit {
         
         this.router.navigate(['/dashboard/empleados']);
         Swal.fire(
-          'Empleado creado',
+          'Empleado creado ',
           'El empleado se ha creado con éxito',
           'success'
         )
